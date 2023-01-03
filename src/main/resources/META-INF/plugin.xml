@@ -1,0 +1,20 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>org.jetbrains.plugins.template</id>
+    <name>Code Golf</name>
+    <vendor>THS</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow
+            id="Code Golf"
+            secondary="true"
+            icon="AllIcons.Nodes.AbstractException"
+            anchor="left"
+            factoryClass="com.github.merlinths.codegolf.windows.CodeGolfWindowFactory" />
+    </extensions>
+
+    <applicationListeners>
+    </applicationListeners>
+</idea-plugin>
