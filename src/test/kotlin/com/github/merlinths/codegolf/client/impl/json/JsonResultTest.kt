@@ -7,8 +7,17 @@ import org.junit.Test
 
 class JsonResultTest {
     @Test
+    fun `Json encoding works`() {
+        val result = JsonResult("Lua", "Lua", true)
+        val serializedResult = """{"Exp":"${result.expected}","Out":"${result.actual}","Pass":${result.successful}}"""
+
+        val deserializedResult = Json.decodeFromString<JsonResult>(serializedResult)
+        assertEquals(result, deserializedResult)
+    }
+
+    @Test
     fun `Json decoding works`() {
-        val expected = "Hello world!"
+        val expected = "Hello World!"
         val actual = "Hello Kotlin!"
         val successful = false
 
