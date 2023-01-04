@@ -11,10 +11,11 @@
             id="Code Golf"
             secondary="true"
             icon="AllIcons.Nodes.AbstractException"
-            anchor="left"
+            anchor="right"
             factoryClass="com.github.merlinths.codegolf.windows.CodeGolfWindowFactory" />
-    </extensions>
 
-    <applicationListeners>
-    </applicationListeners>
+        <projectService
+                serviceInterface="com.github.merlinths.codegolf.service.GolfService"
+                serviceImplementation="com.github.merlinths.codegolf.service.impl.GolfServiceImpl" />
+    </extensions>
 </idea-plugin>

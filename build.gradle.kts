@@ -1,13 +1,15 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun properties(key: String) = project.findProperty(key).toString()
+val ktorVersion = properties("ktorVersion")
 
 plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.7.21"
+    //id("org.jetbrains.kotlin.jvm") version "1.7.21"
     // Gradle IntelliJ Plugin
     id("org.jetbrains.intellij") version "1.10.0"
     // Gradle Changelog Plugin
@@ -16,6 +18,10 @@ plugins {
     id("org.jetbrains.qodana") version "0.1.13"
     // Gradle Kover Plugin
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
+
+    kotlin("jvm") version "1.7.21"
+
+    kotlin("plugin.serialization") version "1.7.21"
 }
 
 group = properties("pluginGroup")
@@ -24,6 +30,16 @@ version = properties("pluginVersion")
 // Configure project's dependencies
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
 }
 
 // Set the JVM language level used to build project. Use Java 11 for 2020.3+, and Java 17 for 2022.2+.
@@ -117,4 +133,15 @@ tasks {
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
     }
+}
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
 }

@@ -1,8 +1,11 @@
 package com.github.merlinths.codegolf.windows.ui.tabs.playground
 
 import com.github.merlinths.codegolf.MyBundle
+import com.github.merlinths.codegolf.service.GolfService
 import com.intellij.ui.dsl.builder.panel
 import com.github.merlinths.codegolf.windows.ui.components.immutableEditor
+import com.intellij.openapi.project.Project
+import kotlinx.coroutines.runBlocking
 
 /**
  * Playground UI
@@ -10,11 +13,11 @@ import com.github.merlinths.codegolf.windows.ui.components.immutableEditor
  * In the playground the user can set up refactoring - configurations to
  * upload the refactored code to [CodeGolf](https://code.golf/).
  *
- * @param[code] Code after CodeGolf refactoring
  * @return main overview panel
  */
 fun playground(
-        code: String
+        project: Project,
+        onSubmitSolution: () -> Unit
 ) = panel {
     group(MyBundle.message("settings")) {
         row {
@@ -27,6 +30,14 @@ fun playground(
     }
 
     group(MyBundle.message("preview")) {
-        immutableEditor(code)
+        immutableEditor(project)
+    }
+
+    group {
+        row {
+            button(MyBundle.message("submit")) {
+                onSubmitSolution()
+            }
+        }
     }
 }
