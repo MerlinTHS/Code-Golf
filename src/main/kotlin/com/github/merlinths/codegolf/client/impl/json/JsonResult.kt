@@ -12,5 +12,8 @@ data class JsonResult(
         val actual: String,
 
         @SerialName("Pass")
-        val successful: Boolean
+        val successful: Boolean,
+
+        @SerialName("Argv")
+        val arguments: List<String>
 )
