@@ -1,8 +1,6 @@
 package com.github.merlinths.codegolf.model
 
-import kotlinx.serialization.Serializable
-
-data class GolfTest(
+data class Test(
         val input: String,
         val output: String
 )
