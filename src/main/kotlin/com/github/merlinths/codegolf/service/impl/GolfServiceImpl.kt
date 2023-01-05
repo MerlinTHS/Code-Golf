@@ -5,15 +5,16 @@ import com.github.merlinths.codegolf.client.url.impl.GolfUrlsImpl
 import com.github.merlinths.codegolf.service.GolfService
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.Editor
+import io.ktor.client.engine.cio.*
 
 class GolfServiceImpl : GolfService, Disposable {
-    private val httpClient = configureHttpClient()
+    private val httpEngine = CIO.create()
     private val golfUrls = GolfUrlsImpl()
 
-    override val client = KtorGolfClient(httpClient, golfUrls)
+    override val client = KtorGolfClient(httpEngine, golfUrls)
     override val minifiedEditor: Editor = configureMinifiedEditor("Hello World!")
 
     override fun dispose() {
-        httpClient.close()
+        httpEngine.close()
     }
 }
