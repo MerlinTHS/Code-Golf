@@ -5,14 +5,14 @@ import com.github.merlinths.codegolf.model.Hole
 import com.github.merlinths.codegolf.model.Language
 import com.github.merlinths.codegolf.model.ranking.RankingPerspective
 import com.github.merlinths.codegolf.model.ranking.RankingType
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class GolfUrlsImplTest {
     private lateinit var golfUrl: GolfUrls
 
-    @Before
+    @BeforeEach
     fun setup() {
         golfUrl = GolfUrlsImpl()
     }

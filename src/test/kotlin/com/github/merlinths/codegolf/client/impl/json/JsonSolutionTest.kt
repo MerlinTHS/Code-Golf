@@ -2,8 +2,8 @@ package com.github.merlinths.codegolf.client.impl.json
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 class JsonSolutionTest {
     @Test

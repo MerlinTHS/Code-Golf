@@ -4,6 +4,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun properties(key: String) = project.findProperty(key).toString()
 val ktorVersion = properties("ktorVersion")
+val jupiterVersion = properties("jupiterVersion")
+val junitPlatformVersion = properties("junitPlatformVersion")
+val coroutineTestVersion = properties("coroutineTestVersion")
 
 plugins {
     // Java support
@@ -33,13 +36,21 @@ repositories {
 }
 
 dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    testImplementation("io.ktor:ktor-client-mock:$ktorVersion")
 
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
+    testImplementation("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion")
 }
 
 // Set the JVM language level used to build project. Use Java 11 for 2020.3+, and Java 17 for 2022.2+.
@@ -71,9 +82,9 @@ qodana {
     showReport.set(System.getenv("QODANA_SHOW_REPORT")?.toBoolean() ?: false)
 }
 
-// Configure Gradle Kover Plugin - read more: https://github.com/Kotlin/kotlinx-kover#configuration
-kover.xmlReport {
-    onCheck.set(true)
+kover.htmlReport {
+    onCheck.set(false)
+    reportDir.set(layout.buildDirectory.dir("reports/kover-html"))
 }
 
 tasks {
@@ -133,10 +144,12 @@ tasks {
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
     }
+
+    test {
+        useJUnitPlatform()
+    }
 }
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-}
+
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     jvmTarget = "1.8"
