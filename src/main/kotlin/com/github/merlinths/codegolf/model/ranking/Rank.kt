@@ -1,9 +1,11 @@
 package com.github.merlinths.codegolf.model.ranking
 
 import com.github.merlinths.codegolf.model.Golfer
-import kotlinx.serialization.Serializable
 
 data class Rank(
         val golfer: Golfer,
-        val position: Int
+        val position: Int,
+        val chars: Long,
+        val bytes: Long,
+        val isMe: Boolean
 )
