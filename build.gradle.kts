@@ -1,3 +1,4 @@
+
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -5,14 +6,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 fun properties(key: String) = project.findProperty(key).toString()
 val ktorVersion = properties("ktorVersion")
 val jupiterVersion = properties("jupiterVersion")
+val mockkVersion = properties("mockKVersion")
 val junitPlatformVersion = properties("junitPlatformVersion")
 val coroutineTestVersion = properties("coroutineTestVersion")
 
 plugins {
     // Java support
     id("java")
-    // Kotlin support
-    //id("org.jetbrains.kotlin.jvm") version "1.7.21"
     // Gradle IntelliJ Plugin
     id("org.jetbrains.intellij") version "1.10.0"
     // Gradle Changelog Plugin
@@ -21,7 +21,7 @@ plugins {
     id("org.jetbrains.qodana") version "0.1.13"
     // Gradle Kover Plugin
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
-
+    // Kotlin support
     kotlin("jvm") version "1.7.21"
 
     kotlin("plugin.serialization") version "1.7.21"
@@ -30,51 +30,52 @@ plugins {
 group = properties("pluginGroup")
 version = properties("pluginVersion")
 
-// Configure project's dependencies
 repositories {
     mavenCentral()
+    maven("https://jitpack.io")
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+    // Minify
+    implementation("com.github.MaliPatuljak:MinifyJava:v1.0.4")
 
+    // Kotlin
+    implementation(kotlin("stdlib-jdk8"))
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion")
+
+    // Ktor
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     testImplementation("io.ktor:ktor-client-mock:$ktorVersion")
-
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
-
+    // JUnit5
     testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
     testImplementation("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
 
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion")
+    // MockK
+    testImplementation("io.mockk:mockk:${mockkVersion}")
 }
 
-// Set the JVM language level used to build project. Use Java 11 for 2020.3+, and Java 17 for 2022.2+.
 kotlin {
     jvmToolchain(11)
 }
 
-// Configure Gradle IntelliJ Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
     pluginName.set(properties("pluginName"))
     version.set(properties("platformVersion"))
     type.set(properties("platformType"))
 
-    // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
     plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
 }
 
-// Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
 changelog {
     groups.set(emptyList())
     repositoryUrl.set(properties("pluginRepositoryUrl"))
 }
 
-// Configure Gradle Qodana Plugin - read more: https://github.com/JetBrains/gradle-qodana-plugin
 qodana {
     cachePath.set(file(".qodana").canonicalPath)
     reportPath.set(file("build/reports/inspections").canonicalPath)
@@ -83,11 +84,17 @@ qodana {
 }
 
 kover.htmlReport {
-    onCheck.set(false)
+    onCheck.set(true)
     reportDir.set(layout.buildDirectory.dir("reports/kover-html"))
 }
 
 tasks {
+    withType(KotlinCompile::class) {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xcontext-receivers")
+        }
+    }
+
     wrapper {
         gradleVersion = properties("gradleVersion")
     }
@@ -148,13 +155,4 @@ tasks {
     test {
         useJUnitPlatform()
     }
-}
-
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
 }

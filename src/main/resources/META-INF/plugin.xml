@@ -5,6 +5,7 @@
     <vendor>THS</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow
@@ -12,10 +13,56 @@
             secondary="true"
             icon="AllIcons.Nodes.AbstractException"
             anchor="right"
-            factoryClass="com.github.merlinths.codegolf.windows.CodeGolfWindowFactory" />
+            factoryClass="com.github.merlinths.codegolf.windows.GolfWindowFactory" />
 
         <projectService
                 serviceInterface="com.github.merlinths.codegolf.service.GolfService"
                 serviceImplementation="com.github.merlinths.codegolf.service.impl.GolfServiceImpl" />
+
+        <notificationGroup id="CodeGolf Notifications"
+                           displayType="BALLOON" />
     </extensions>
+
+    <projectListeners>
+        <listener
+            class="com.github.merlinths.codegolf.listener.SaveDocumentListener"
+            topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener" />
+    </projectListeners>
+
+    <actions>
+        <group  id="Minify Group"
+                text="Minify"
+                popup="true"
+                compact="true"
+                icon="AllIcons.Actions.Annotate">
+
+            <add-to-group group-id="EditorPopupMenu"
+                          relative-to-action="RefactoringMenu"
+                          anchor="before" />
+
+            <action id="com.github.merlinths.codegolf.actions.MinifySpaceAction"
+                    class="com.github.merlinths.codegolf.actions.MinifySpaceAction"
+                    icon="AllIcons.Nodes.Enum"
+                    description="Remove comments and whitespaces"
+                    text="Space" />
+
+            <action id="com.github.merlinths.codegolf.actions.MinifyNamesAction"
+                    class="com.github.merlinths.codegolf.actions.MinifyNamesAction"
+                    icon="AllIcons.Debugger.VariablesTab"
+                    description="Refactor names to a minimal length"
+                    text="Names" />
+
+            <separator />
+
+            <action id="com.github.merlinths.codegolf.actions.MinifySpaceAndNamesAction"
+                    class="com.github.merlinths.codegolf.actions.MinifySpaceAndNamesAction"
+                    icon="AllIcons.Nodes.AbstractException"
+                    description="Minify space and names"
+                    text="All">
+                <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control alt 1" />
+            </action>
+        </group>
+    </actions>
 </idea-plugin>
