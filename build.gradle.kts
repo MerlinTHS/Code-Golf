@@ -4,7 +4,6 @@ import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun properties(key: String) = project.findProperty(key).toString()
-val ktorVersion = properties("ktorVersion")
 val jupiterVersion = properties("jupiterVersion")
 val mockkVersion = properties("mockKVersion")
 val junitPlatformVersion = properties("junitPlatformVersion")
@@ -23,8 +22,6 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     // Kotlin support
     kotlin("jvm") version "1.7.21"
-
-    kotlin("plugin.serialization") version "1.7.21"
 }
 
 group = properties("pluginGroup")
@@ -43,13 +40,6 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion")
-
-    // Ktor
-    implementation("io.ktor:ktor-client-core:$ktorVersion")
-    implementation("io.ktor:ktor-client-cio:$ktorVersion")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-    testImplementation("io.ktor:ktor-client-mock:$ktorVersion")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
     // JUnit5
     testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
@@ -154,5 +144,10 @@ tasks {
 
     test {
         useJUnitPlatform()
+    }
+
+    named<Zip>("buildPlugin") {
+        dependsOn("test")
+        archiveFileName.set("CodeGolf.zip")
     }
 }
