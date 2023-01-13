@@ -15,11 +15,6 @@ You can use up to
 <!-- Plugin description end -->
 
 ## Installation
-
-- Using IDE built-in plugin system:
-  
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Code-Golf"</kbd> >
-  <kbd>Install Plugin</kbd>
   
 - Manually:
 
