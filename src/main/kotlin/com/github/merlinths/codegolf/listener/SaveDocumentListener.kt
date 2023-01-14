@@ -2,6 +2,8 @@ package com.github.merlinths.codegolf.listener
 
 import com.github.merlinths.codegolf.service.GolfService
 import com.intellij.ide.highlighter.JavaFileType
+import com.intellij.model.ModelBranch
+import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManagerListener
@@ -22,7 +24,7 @@ class SaveDocumentListener(
     }
 
     private fun saveMinifiedCode(code: String) {
-        val golfService = project.getService(GolfService::class.java)
+        val golfService = project.service<GolfService>()
 
         golfService
             .golfEditor

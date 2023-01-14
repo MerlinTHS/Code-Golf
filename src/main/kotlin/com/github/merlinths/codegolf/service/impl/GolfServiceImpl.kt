@@ -3,6 +3,8 @@ package com.github.merlinths.codegolf.service.impl
 import com.github.merlinths.codegolf.service.GolfService
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
+import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.refactoring.RefactoringActionHandlerFactory
 import com.intellij.ui.jcef.JBCefBrowser
 
 class GolfServiceImpl(

@@ -1,15 +1,17 @@
-package com.github.merlinths.codegolf.refactoring.methods
+package com.github.merlinths.codegolf.refactoring.renaming
 
 import com.github.merlinths.codegolf.refactoring.renaming.provider.IDProvider
 import com.github.merlinths.codegolf.refactoring.renaming.rename
 import com.intellij.lang.jvm.JvmModifier
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiMethod
+import com.intellij.psi.util.PsiTreeUtil
 
 fun PsiElement.renameMethodDeclarations(
     provider: IDProvider
 ) {
-    methods
+    PsiTreeUtil
+        .findChildrenOfType(this, PsiMethod::class.java)
         .filterNot(PsiMethod::isMainMethod)
         .forEach { method ->
             method.rename(

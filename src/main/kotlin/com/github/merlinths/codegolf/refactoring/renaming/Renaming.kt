@@ -1,6 +1,7 @@
 package com.github.merlinths.codegolf.refactoring.renaming
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.search.LocalSearchScope
 import com.intellij.refactoring.RefactoringFactory
 
 fun PsiElement.rename(
@@ -8,6 +9,6 @@ fun PsiElement.rename(
 ) {
     RefactoringFactory
         .getInstance(project)
-        .createRename(this, newName, this.useScope, false, false)
+        .createRename(this, newName, LocalSearchScope(this), false, false)
         .run()
 }
