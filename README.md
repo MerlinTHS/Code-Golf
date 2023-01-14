@@ -6,13 +6,13 @@ IntelliJ Idea plugin to 'codegolf' easier!
 The plugin minifies your code by removing all the unnecessary whitespaces and renaming
 declarations to the shortest names possible.
 
-It also wraps the available languages into an additional
-block below details.
-
 ![Tool window home](/screenshots/CodeGolfHome.png)
 
 Whenever you save your code (strg + s) the plugin inserts it's minified
 version into the selected hole editor.
+
+It also wraps the available languages into an additional
+block below details.
 
 ![Tool window hole](/screenshots/CodeGolfExampleHole.png)
 
