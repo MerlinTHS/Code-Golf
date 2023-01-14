@@ -20,6 +20,10 @@ You can use up to
 -  53 single-character names
 - 3456 two-character names
 - ...
+
+## Supported languages
+- Java
+
 <!-- Plugin description end -->
 
 ## Installation
