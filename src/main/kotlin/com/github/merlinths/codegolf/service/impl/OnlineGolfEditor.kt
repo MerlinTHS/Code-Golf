@@ -23,7 +23,7 @@ class OnlineGolfEditor(
     override fun setCode(code: String) {
         application.invokeLater {
             SlowOperations.allowSlowOperations<Exception> {
-                removeLanguagePicker() // TODO: Move into listener
+                transformLanguagePicker() // TODO: Move into listener
 
                 val refactoredCode = refactor(code)
                 injectIntoEditor(refactoredCode.minify())
@@ -39,14 +39,26 @@ class OnlineGolfEditor(
             ?: ""
     }
 
-    private fun removeLanguagePicker() {
-        val removeCommand = """
-            if(document.getElementById('picker')) {
-                document.getElementById('picker').remove();
+    private fun transformLanguagePicker() {
+        val transformCommand = """
+            if (document.getElementById('picker')) {
+                if (typeof languagePicker === 'undefined') {
+                    const mainContent = document.getElementsByTagName('main')[0];
+                    const languagePicker = document.getElementById('picker');
+                    
+                    const languageDetails = document.createElement('details');
+                    const languageSummary = document.createElement('summary');
+                    languageSummary.textContent = 'Languages';
+                    
+                    languageDetails.appendChild(languageSummary);
+                    mainContent.insertBefore(languageDetails, languagePicker);
+                    
+                    languageDetails.appendChild(languagePicker);                                                                           
+                }
             }
-        """.trimMargin()
+        """.trimIndent()
 
-        executeJavaScript(removeCommand)
+        executeJavaScript(transformCommand)
     }
 
     private fun injectIntoEditor(code: String) {
@@ -55,7 +67,7 @@ class OnlineGolfEditor(
                             document.getElementById('editor')
                             .getElementsByClassName('cm-content')[0]
                             .textContent = `$escapedCode`;
-                        """.trimMargin()
+                        """.trimIndent()
 
         executeJavaScript(injectionCommand)
     }

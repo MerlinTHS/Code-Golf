@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>org.jetbrains.plugins.template</id>
     <name>Code Golf</name>
-    <vendor>THS</vendor>
+    <vendor>MerlinTHS</vendor>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
