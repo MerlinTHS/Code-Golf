@@ -11,7 +11,7 @@
         <toolWindow
             id="Code Golf"
             secondary="true"
-            icon="AllIcons.Nodes.AbstractException"
+            icon="com.github.merlinths.codegolf.MyIcons.Golf"
             anchor="right"
             factoryClass="com.github.merlinths.codegolf.windows.GolfWindowFactory" />
 
@@ -31,26 +31,25 @@
 
     <actions>
         <group  id="Minify Group"
-                text="Minify"
+                text="Code Golf"
                 popup="true"
                 compact="true"
-                icon="AllIcons.Actions.Annotate">
+                icon="com.github.merlinths.codegolf.MyIcons.Golf">
 
             <add-to-group group-id="EditorPopupMenu"
-                          relative-to-action="RefactoringMenu"
-                          anchor="before" />
+                          anchor="first" />
 
             <action id="com.github.merlinths.codegolf.actions.MinifySpaceAction"
                     class="com.github.merlinths.codegolf.actions.MinifySpaceAction"
                     icon="AllIcons.Nodes.Enum"
                     description="Remove comments and whitespaces"
-                    text="Space" />
+                    text="Minify Space" />
 
             <action id="com.github.merlinths.codegolf.actions.MinifyNamesAction"
                     class="com.github.merlinths.codegolf.actions.MinifyNamesAction"
                     icon="AllIcons.Debugger.VariablesTab"
                     description="Refactor names to a minimal length"
-                    text="Names" />
+                    text="Minify Names" />
 
             <separator />
 
@@ -58,7 +57,7 @@
                     class="com.github.merlinths.codegolf.actions.MinifySpaceAndNamesAction"
                     icon="AllIcons.Nodes.AbstractException"
                     description="Minify space and names"
-                    text="All">
+                    text="Minify">
                 <keyboard-shortcut
                     keymap="$default"
                     first-keystroke="control alt 1" />

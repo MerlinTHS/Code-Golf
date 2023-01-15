@@ -61,5 +61,6 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 Plugin icon by <a href="https://freeicons.io/profile/112739">ToZIcon</a> on 
 <a href="https://freeicons.io">freeicons.io</a>
 
-Tool window icon by <a href="https://freeicons.io/profile/112739">Alpár Méder</a> on
+Tool window icon by <a href="https://freeicons.io/profile/714">Raj Dev</a> on
 <a href="https://freeicons.io">freeicons.io</a>
+                                
