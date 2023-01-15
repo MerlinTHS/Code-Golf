@@ -55,3 +55,11 @@ block below details.
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 [template]: https://github.com/JetBrains/intellij-platform-plugin-template
+
+### Icons
+
+Plugin icon by <a href="https://freeicons.io/profile/112739">ToZIcon</a> on 
+<a href="https://freeicons.io">freeicons.io</a>
+
+Tool window icon by <a href="https://freeicons.io/profile/112739">Alpár Méder</a> on
+<a href="https://freeicons.io">freeicons.io</a>
