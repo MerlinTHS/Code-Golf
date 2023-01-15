@@ -58,9 +58,8 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 ### Icons
 
-Plugin icon by <a href="https://freeicons.io/profile/112739">ToZIcon</a> on 
-<a href="https://freeicons.io">freeicons.io</a>
-
-Tool window icon by <a href="https://freeicons.io/profile/714">Raj Dev</a> on
-<a href="https://freeicons.io">freeicons.io</a>
-                                
+pluginIcon.svg by <a href="https://freeicons.io/profile/112739">ToZIcon</a>, 
+Golf.svg by <a href="https://freeicons.io/profile/714">Raj Dev</a>, 
+Space.svg by <a href="https://freeicons.io/profile/823">Muhammad Haq</a>, 
+Variable.svg by <a href="https://freeicons.io/profile/229456">master mind</a>
+on <a href="https://freeicons.io">freeicons.io</a>

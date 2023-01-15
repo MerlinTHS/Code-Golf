@@ -41,13 +41,13 @@
 
             <action id="com.github.merlinths.codegolf.actions.MinifySpaceAction"
                     class="com.github.merlinths.codegolf.actions.MinifySpaceAction"
-                    icon="AllIcons.Nodes.Enum"
+                    icon="com.github.merlinths.codegolf.MyIcons.Space"
                     description="Remove comments and whitespaces"
                     text="Minify Space" />
 
             <action id="com.github.merlinths.codegolf.actions.MinifyNamesAction"
                     class="com.github.merlinths.codegolf.actions.MinifyNamesAction"
-                    icon="AllIcons.Debugger.VariablesTab"
+                    icon="com.github.merlinths.codegolf.MyIcons.Variable"
                     description="Refactor names to a minimal length"
                     text="Minify Names" />
 
@@ -55,7 +55,7 @@
 
             <action id="com.github.merlinths.codegolf.actions.MinifySpaceAndNamesAction"
                     class="com.github.merlinths.codegolf.actions.MinifySpaceAndNamesAction"
-                    icon="AllIcons.Nodes.AbstractException"
+                    icon="com.github.merlinths.codegolf.MyIcons.Magic"
                     description="Minify space and names"
                     text="Minify">
                 <keyboard-shortcut
